@@ -38,8 +38,4 @@ To Start the bot
 
 Now you can use this bot.
 
-Thanks for using this code, don't forget to star this repo.
-
-
-## 🔗 Links
-![https://hi-mannuvls.vercel.app](https://img.shields.io/badge/my_portfolio-000?style=for-the-badge&logo=ko-fi&logoColor=white)
+## Thanks for using this code, don't forget to star this repo.
