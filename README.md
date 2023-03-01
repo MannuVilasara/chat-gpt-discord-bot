@@ -38,4 +38,5 @@ To Start the bot
 
 Now you can use this bot.
 
-## Thanks for using this code, don't forget to star this repo.
+
+ Thanks for using this code, don't forget to star this repo.
