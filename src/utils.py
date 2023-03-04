@@ -57,14 +57,14 @@ async def close_thread(thread: discord.Thread):
     await thread.edit(archived=True, locked=True)
 
 
-def should_block(guild: Optional[discord.Guild]) -> bool:
-    if guild is None:
-        # dm's not supported
-        logger.info(f"DM not supported")
-        return True
+# def should_block(guild: Optional[discord.Guild]) -> bool:
+#     if guild is None:
+#         # dm's not supported
+#         logger.info(f"DM not supported")
+#         return True
 
-    if guild.id and guild.id not in ALLOWED_SERVER_IDS:
-        # not allowed in this server
-        logger.info(f"Guild {guild} not allowed")
-        return True
-    return False
+#     if guild.id and guild.id not in ALLOWED_SERVER_IDS:
+#         # not allowed in this server
+#         logger.info(f"Guild {guild} not allowed")
+#         return True
+#     return False

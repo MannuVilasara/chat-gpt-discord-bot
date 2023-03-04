@@ -4,6 +4,11 @@ import dacite
 import yaml
 from typing import Dict, List
 from src.base import Config
+import json
+
+with open("data.json") as f:
+    data = json.load(f)
+
 
 load_dotenv()
 
@@ -18,17 +23,23 @@ BOT_NAME = CONFIG.name
 BOT_INSTRUCTIONS = CONFIG.instructions
 EXAMPLE_CONVOS = CONFIG.example_conversations
 
-DISCORD_BOT_TOKEN = os.environ["DISCORD_BOT_TOKEN"]
-DISCORD_CLIENT_ID = os.environ["DISCORD_CLIENT_ID"]
+# DISCORD_BOT_TOKEN = os.environ["DISCORD_BOT_TOKEN"]
+# DISCORD_CLIENT_ID = os.environ["DISCORD_CLIENT_ID"]
 OPENAI_API_KEY = os.environ["OPENAI_API_KEY"]
 
+DISCORD_BOT_TOKEN = data["DISCORD_BOT_TOKEN"]
+DISCORD_CLIENT_ID = data["DISCORD_CLIENT_ID"]
+# OPENAI_API_KEY = data["OPENAI_API_KEY"]
+
 ALLOWED_SERVER_IDS: List[int] = []
-server_ids = os.environ["ALLOWED_SERVER_IDS"].split(",")
+server_ids = data["ALLOWED_SERVER_IDS"]
 for s in server_ids:
     ALLOWED_SERVER_IDS.append(int(s))
 
 SERVER_TO_MODERATION_CHANNEL: Dict[int, int] = {}
 server_channels = os.environ.get("SERVER_TO_MODERATION_CHANNEL", "").split(",")
+server_channels = os.environ.get("SERVER_TO_MODERATION_CHANNEL", "").split(",")
+
 for s in server_channels:
     values = s.split(":")
     SERVER_TO_MODERATION_CHANNEL[int(values[0])] = int(values[1])

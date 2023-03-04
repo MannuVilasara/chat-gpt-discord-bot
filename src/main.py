@@ -13,7 +13,7 @@ from src.constants import (
 import asyncio
 from src.utils import (
     logger,
-    should_block,
+    # should_block,
     close_thread,
     is_last_message_stale,
     discord_message_to_message,
@@ -26,15 +26,28 @@ from src.moderation import (
     send_moderation_flagged_message,
 )
 
+from discord.ext import commands
+
+import json
+
+
+
 logging.basicConfig(
     format="[%(asctime)s] [%(filename)s:%(lineno)d] %(message)s", level=logging.INFO
 )
 
 intents = discord.Intents.default()
 intents.message_content = True
+intents.members = True
 
-client = discord.Client(intents=intents)
+activity=discord.Activity(type=discord.ActivityType.watching, name="✔ MAU")
+
+client = discord.Client(intents=intents,status=discord.Status.idle,activity=activity)
 tree = discord.app_commands.CommandTree(client)
+
+bot = commands.Bot(command_prefix="+", intents=intents)
+
+
 
 
 @client.event
@@ -52,6 +65,31 @@ async def on_ready():
         completion.MY_BOT_EXAMPLE_CONVOS.append(Conversation(messages=messages))
     await tree.sync()
 
+# @tree.command(name="add", description="Add server to data")
+# async def add(message):
+#     print(f"Guild id: {message.guild.id}")
+
+
+
+
+@tree.command(name = "help", description = "Get Help")
+async def first_command(interaction):
+    embed = discord.Embed(
+    description=f"This bot is created with the help of openai 🤖 💬 \n\n here are some commands \n\n  /chat -> to start chat \n /repo -> to get github repo link" ,
+    color=discord.Color.green(),
+            )
+    # embed.add_field(name=user.name, value=message)
+    await interaction.response.send_message(embed=embed)
+
+@tree.command(name = "repo", description = "Get Bot Repo")
+async def first_command(interaction):
+
+    # embed.add_field(name=user.name, value=message)
+    await interaction.response.send_message(":robot:  This Bot is created By <@786926252811485186> with the help of openai api \n :link:  You can create your own bot like this, just fork this repo and do whatever changes you want. \n :star: Dont foget to star my repo   \n https://github.com/MannuVilasara/chat-gpt")    
+@tree.command(name = "echo", description = "Make the bot send message") 
+async def chat_command(int: discord.Interaction, message: str):
+    await int.response.send_message(message)
+
 
 # /chat message:
 @tree.command(name="chat", description="Create a new thread for conversation")
@@ -67,7 +105,7 @@ async def chat_command(int: discord.Interaction, message: str):
             return
 
         # block servers not in allow list
-        if should_block(guild=int.guild):
+        # if should_block(guild=int.guild):
             return
 
         user = int.user
@@ -146,8 +184,8 @@ async def chat_command(int: discord.Interaction, message: str):
 async def on_message(message: DiscordMessage):
     try:
         # block servers not in allow list
-        if should_block(guild=message.guild):
-            return
+        # if should_block(guild=message.guild):
+        #     return
 
         # ignore messages from the bot
         if message.author == client.user:
