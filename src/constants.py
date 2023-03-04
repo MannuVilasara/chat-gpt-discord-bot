@@ -6,8 +6,6 @@ from typing import Dict, List
 from src.base import Config
 import json
 
-with open("data.json") as f:
-    data = json.load(f)
 
 
 load_dotenv()
@@ -23,13 +21,13 @@ BOT_NAME = CONFIG.name
 BOT_INSTRUCTIONS = CONFIG.instructions
 EXAMPLE_CONVOS = CONFIG.example_conversations
 
-# DISCORD_BOT_TOKEN = os.environ["DISCORD_BOT_TOKEN"]
-# DISCORD_CLIENT_ID = os.environ["DISCORD_CLIENT_ID"]
+DISCORD_BOT_TOKEN = os.environ["DISCORD_BOT_TOKEN"]
+DISCORD_CLIENT_ID = os.environ["DISCORD_CLIENT_ID"]
 OPENAI_API_KEY = os.environ["OPENAI_API_KEY"]
 
-DISCORD_BOT_TOKEN = data["DISCORD_BOT_TOKEN"]
-DISCORD_CLIENT_ID = data["DISCORD_CLIENT_ID"]
-# OPENAI_API_KEY = data["OPENAI_API_KEY"]
+# DISCORD_BOT_TOKEN = data["DISCORD_BOT_TOKEN"]
+# DISCORD_CLIENT_ID = data["DISCORD_CLIENT_ID"]
+# # OPENAI_API_KEY = data["OPENAI_API_KEY"]
 
 ALLOWED_SERVER_IDS: List[int] = []
 server_ids = data["ALLOWED_SERVER_IDS"]
